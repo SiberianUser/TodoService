@@ -110,7 +110,7 @@ namespace TodoApi.Controllers
             {
                 Id = todoItem.Id,
                 Name = todoItem.Name,
-                IsComplete = todoItem.IsComplete
+                IsComplete = todoItem.IsComplete,
             };       
     }
 }
