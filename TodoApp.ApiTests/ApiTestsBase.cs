@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using TodoApi;
+using TodoApiDTO;
 
 namespace TodoApp.ApiTests
 {
@@ -27,8 +27,8 @@ namespace TodoApp.ApiTests
             Debug.Assert(Factory.FoundTodoItemId > 0);
             Debug.Assert(Factory.NotFoundTodoItemId > 0);
             Debug.Assert(Factory.TodoItemToUpdateId  > 0);
-            Debug.Assert(Factory.TodoItemToUpdate != default);
             Debug.Assert(Factory.TodoItemToDeleteId  > 0);
+            Debug.Assert(Factory.DeletedTodoItemToUpdateId  > 0);
             Debug.Assert(Factory.Source.Count > 0);
         }
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TodoApp.ItemServices.Model;
 
-namespace TodoApi.Models
+namespace TodoApp.DataAccess
 {
     public class TodoContext : DbContext
     {
@@ -10,14 +11,5 @@ namespace TodoApi.Models
         }
 
         public DbSet<TodoItem> TodoItems { get; set; }
-        
-        
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<TodoItem>().HasKey(x => x.Id);
-        
-            base.OnModelCreating(modelBuilder);
-        }
     }
-
 }

@@ -3,7 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
-using TodoApi.Models;
+using TodoApp.TodoItems.Shared.Dto;
 
 namespace TodoApp.ApiTests
 {
@@ -76,6 +76,20 @@ namespace TodoApp.ApiTests
             getAll.Count.Should().Be(oldCount);
             var getResult = await GetByIdAsync<TodoItemDTO>(Factory.TodoItemToUpdateId);
             getResult.Should().BeEquivalentTo(todoItem);
+        }
+        
+        [Test]
+        public async Task Put_Concurrency_ItemDeleted_VerifyNotFound()
+        {
+            var todoItem = new TodoItemDTO
+            {
+                IsComplete = true,
+                Name = "NewTestTodoItem",
+                Id = Factory.DeletedTodoItemToUpdateId
+            };
+            await DeleteAsync(todoItem.Id, HttpStatusCode.NoContent);
+
+            await PutAsync(Factory.DeletedTodoItemToUpdateId, todoItem, HttpStatusCode.NotFound);
         }
         
         [Test]

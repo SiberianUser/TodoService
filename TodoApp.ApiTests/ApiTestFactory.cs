@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using TodoApi.Models;
+using TodoApp.DataAccess;
+using TodoApp.ItemServices.Model;
 
 namespace TodoApp.ApiTests
 {
@@ -16,7 +17,7 @@ namespace TodoApp.ApiTests
         public long FoundTodoItemId;
         public long NotFoundTodoItemId;
         public long TodoItemToUpdateId;
-        public TodoItem TodoItemToUpdate;
+        public long DeletedTodoItemToUpdateId;
         public long TodoItemToDeleteId;
         public List<TodoItem> Source;
 
@@ -71,8 +72,8 @@ namespace TodoApp.ApiTests
 
             FoundTodoItemId = items.First().Id;
             NotFoundTodoItemId = items.Count + 100;
-            TodoItemToUpdate = items.Skip(2).First();
-            TodoItemToUpdateId = TodoItemToUpdate.Id;
+            TodoItemToUpdateId = items.Skip(2).First().Id;
+            DeletedTodoItemToUpdateId = items.Skip(10).First().Id;
             TodoItemToDeleteId = items.SkipLast(5).Last().Id;
             Source = items;
         }

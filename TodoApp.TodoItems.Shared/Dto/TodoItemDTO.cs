@@ -1,4 +1,4 @@
-﻿namespace TodoApi.Models
+﻿namespace TodoApp.TodoItems.Shared.Dto
 {
     #region snippet
     public class TodoItemDTO
