@@ -17,7 +17,7 @@ namespace TodoApp.ItemServices.UnitTests
     {
         private readonly AutoMocker _mocker = new AutoMocker(MockBehavior.Strict);
         private ITodoItemAdapter _subject;
-        
+
         [SetUp]
         public void BeforeEachTest()
         {
@@ -32,19 +32,19 @@ namespace TodoApp.ItemServices.UnitTests
 
             var result = await _subject.GetAsync();
 
-            result.ToList().Should().BeEquivalentTo(items, opts=>opts.Excluding(e=>e.Secret));
+            result.ToList().Should().BeEquivalentTo(items, opts => opts.Excluding(e => e.Secret));
         }
 
         [Test]
         public async Task GetAsync_NoItems_VerifyEmptyResult()
         {
-            _mocker.GetMock<ITodoItemsAccess>().Setup(x => x.GetAsync()).ReturnsAsync(new TodoItem[]{});
-            
+            _mocker.GetMock<ITodoItemsAccess>().Setup(x => x.GetAsync()).ReturnsAsync(new TodoItem[] { });
+
             var result = await _subject.GetAsync();
 
             result.ToList().Should().BeEmpty();
         }
-        
+
         [Test]
         public async Task GetAsync_ById_VerifyResult()
         {
@@ -55,7 +55,7 @@ namespace TodoApp.ItemServices.UnitTests
 
             result.Should().BeEquivalentTo(item, opts => opts.Excluding(x => x.Secret));
         }
-        
+
         [Test]
         public async Task GetAsync_ById_VerifyArguments()
         {
@@ -66,7 +66,7 @@ namespace TodoApp.ItemServices.UnitTests
 
             await _subject.GetAsync(123L);
 
-            _mocker.GetMock<ITodoItemsAccess>().Verify(x=>x.GetAsync(It.IsAny<long>()), Times.Once);
+            _mocker.GetMock<ITodoItemsAccess>().Verify(x => x.GetAsync(It.IsAny<long>()), Times.Once);
             idCallback.Should().Be(123L);
         }
 
@@ -84,7 +84,7 @@ namespace TodoApp.ItemServices.UnitTests
             addCallback.Should().NotBeNull();
             addCallback.Should().BeEquivalentTo(itemDto, opts => opts.Excluding(x => x.Id));
         }
-        
+
         [Test]
         public async Task AddAsync_VerifyAddedItemMappedResult()
         {
@@ -96,9 +96,9 @@ namespace TodoApp.ItemServices.UnitTests
                     c.Id = 333L;
                 });
 
-           var result = await _subject.AddAsync(itemDto);
-           result.Should().BeEquivalentTo(itemDto, opts=>opts.Excluding(x=>x.Id));
-           result.Id.Should().Be(333L);
+            var result = await _subject.AddAsync(itemDto);
+            result.Should().BeEquivalentTo(itemDto, opts => opts.Excluding(x => x.Id));
+            result.Id.Should().Be(333L);
         }
 
         [Test]
@@ -114,12 +114,12 @@ namespace TodoApp.ItemServices.UnitTests
                 .Returns(Task.CompletedTask);
 
             await _subject.UpdateAsync(itemDto.Id, itemDto);
-            
+
             updateCallback.Should().NotBeNull();
             updateCallback.Should().BeEquivalentTo(itemDto, opts => opts.Excluding(x => x.Id));
             updateCallback.Id.Should().Be(item.Id);
         }
-        
+
         [Test]
         public async Task UpdateAsync_ItemNotExist_VerifyNotFoundException()
         {
@@ -148,7 +148,7 @@ namespace TodoApp.ItemServices.UnitTests
             deleteCallback.Should().NotBeNull();
             deleteCallback.Should().Be(item);
         }
-        
+
         [Test]
         public async Task DeleteAsync_ItemNotExist_VerifyNotFoundException()
         {

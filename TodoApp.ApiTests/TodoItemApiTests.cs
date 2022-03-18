@@ -7,7 +7,7 @@ using TodoApp.TodoItems.Shared.Dto;
 
 namespace TodoApp.ApiTests
 {
-    public class TodoItemApiTests:ApiTestsBase
+    public class TodoItemApiTests : ApiTestsBase
     {
         protected override string ApiRoute => "api/todoitems";
 
@@ -25,9 +25,9 @@ namespace TodoApp.ApiTests
             var todoItem = Factory.Source.Find(f => f.Id == Factory.FoundTodoItemId);
             var response = await GetByIdAsync<TodoItemDTO>(Factory.FoundTodoItemId);
 
-            response.Should().BeEquivalentTo(todoItem, opts=>opts.Excluding(x=>x.Secret));
+            response.Should().BeEquivalentTo(todoItem, opts => opts.Excluding(x => x.Secret));
         }
-        
+
         [Test]
         public async Task GetById_VerifyNotFound()
         {
@@ -49,14 +49,14 @@ namespace TodoApp.ApiTests
 
             var result = await PostAsync(todoItem);
 
-            result.Should().BeEquivalentTo(todoItem, opts=> opts.Excluding(x=>x.Id));
+            result.Should().BeEquivalentTo(todoItem, opts => opts.Excluding(x => x.Id));
             getAll = await GetListAsync<TodoItemDTO>();
             getAll.Should().Contain(x => x.Id == result.Id);
             getAll.Count.Should().Be(oldCount + 1);
             var getResult = await GetByIdAsync<TodoItemDTO>(result.Id);
             getResult.Should().BeEquivalentTo(result);
         }
-        
+
         [Test]
         public async Task Put_VerifySuccess()
         {
@@ -77,7 +77,7 @@ namespace TodoApp.ApiTests
             var getResult = await GetByIdAsync<TodoItemDTO>(Factory.TodoItemToUpdateId);
             getResult.Should().BeEquivalentTo(todoItem);
         }
-        
+
         [Test]
         public async Task Put_Concurrency_ItemDeleted_VerifyNotFound()
         {
@@ -91,7 +91,7 @@ namespace TodoApp.ApiTests
 
             await PutAsync(Factory.DeletedTodoItemToUpdateId, todoItem, HttpStatusCode.NotFound);
         }
-        
+
         [Test]
         public async Task Put_IdNotMatch_VerifyBadRequest()
         {
@@ -113,7 +113,7 @@ namespace TodoApp.ApiTests
             var itemShouldNotBeUpdated = getAll.First(x => x.Id == Factory.TodoItemToUpdateId);
             itemToUpdate.Should().BeEquivalentTo(itemShouldNotBeUpdated);
         }
-        
+
         [Test]
         public async Task Put_VerifyNotFound()
         {
@@ -126,13 +126,13 @@ namespace TodoApp.ApiTests
 
             await PutAsync(Factory.NotFoundTodoItemId, todoItem, HttpStatusCode.NotFound);
         }
-        
+
         [Test]
         public async Task Delete_VerifyNotFound()
         {
             await DeleteAsync(Factory.NotFoundTodoItemId, HttpStatusCode.NotFound);
         }
-        
+
         [Test]
         public async Task Delete_VerifySuccess()
         {
@@ -140,7 +140,7 @@ namespace TodoApp.ApiTests
             before.Should().Contain(x => x.Id == Factory.TodoItemToDeleteId);
 
             await DeleteAsync(Factory.TodoItemToDeleteId, HttpStatusCode.NoContent);
-            
+
             var after = await GetListAsync<TodoItemDTO>();
             after.Count.Should().Be(before.Count - 1);
             after.Should().NotContain(x => x.Id == Factory.TodoItemToDeleteId);

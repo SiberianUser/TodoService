@@ -9,8 +9,8 @@ namespace TodoApp.Registry
     {
         public static IServiceCollection AddDataAccessContext(this IServiceCollection services, IConfiguration configuration)
         {
-           return services.AddDbContext<TodoContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("TodoListSql"), o=>o.MigrationsAssembly("TodoApp.Api")));
+            return services.AddDbContext<TodoContext>(options =>
+                 options.UseSqlServer(configuration.GetConnectionString("TodoListSql"), o => o.MigrationsAssembly("TodoApp.Api")));
         }
     }
 }

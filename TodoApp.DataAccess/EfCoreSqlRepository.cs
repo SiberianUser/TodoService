@@ -15,7 +15,7 @@ namespace TodoApp.DataAccess
         {
             _context = context;
         }
-        
+
         public async Task<IEnumerable<TEntity>> GetAsync()
         {
             return await _context.Set<TEntity>().AsNoTracking().ToListAsync();
@@ -35,7 +35,7 @@ namespace TodoApp.DataAccess
         public async Task UpdateAsync(TEntity entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            
+
             try
             {
                 await _context.SaveChangesAsync();

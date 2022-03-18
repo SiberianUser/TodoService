@@ -9,7 +9,7 @@ using TodoApp.TodoItems.Shared.Dto;
 
 namespace TodoApp.ItemServices
 {
-    public class TodoItemService:ITodoItemAdapter
+    public class TodoItemService : ITodoItemAdapter
     {
         private readonly ITodoItemsAccess _dataAccess;
         private readonly TodoItemMapper _itemMapper = new TodoItemMapper();
@@ -43,7 +43,7 @@ namespace TodoApp.ItemServices
         public async Task UpdateAsync(long id, TodoItemDTO todoItemDto)
         {
             var existingEntity = await GetItemAndThrowIfNotExistAsync(id);
-            
+
             _itemMapper.DtoToItem(todoItemDto, existingEntity);
             await _dataAccess.UpdateAsync(existingEntity);
         }

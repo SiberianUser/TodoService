@@ -44,7 +44,7 @@ namespace TodoApp.Api
             }
 
             app.UseProblemDetails();
-            
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -55,7 +55,7 @@ namespace TodoApp.Api
             {
                 endpoints.MapControllers();
             });
-            
+
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>

@@ -65,7 +65,7 @@ namespace TodoApp.ApiTests
         {
 
             var items = TodoItemsGenerator.RandomTodoItems();
-            
+
             db.Set<TodoItem>().AddRangeAsync(items);
             db.SaveChanges();
 

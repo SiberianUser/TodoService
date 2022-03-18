@@ -36,7 +36,7 @@ namespace TodoApp.Api.Controllers
             {
                 return BadRequest();
             }
-            
+
             await _itemAdapter.UpdateAsync(id, todoItemDto);
             return NoContent();
         }

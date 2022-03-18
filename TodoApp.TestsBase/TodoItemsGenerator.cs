@@ -7,7 +7,7 @@ namespace TodoApp.TestsBase
     public static class TodoItemsGenerator
     {
         public static TodoItem RandomTodoItem() => TodoItem.Generate();
-        
+
         public static List<TodoItem> RandomTodoItems(int count = 100) => TodoItem.Generate(count);
 
         private static readonly Faker<TodoItem> TodoItem = new Faker<TodoItem>()

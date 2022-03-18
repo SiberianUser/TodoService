@@ -11,8 +11,8 @@ namespace TodoApp.ItemServices.Mappers
                 Id = todoItem.Id,
                 Name = todoItem.Name,
                 IsComplete = todoItem.IsComplete
-            };     
-        
+            };
+
         public TodoItem DtoToItem(TodoItemDTO todoItemDto) =>
             new TodoItem
             {

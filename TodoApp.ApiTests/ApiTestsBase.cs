@@ -15,7 +15,7 @@ namespace TodoApp.ApiTests
     {
         protected ApiTestFactory<Startup> Factory;
         protected HttpClient Client;
-        
+
         protected abstract string ApiRoute { get; }
 
         [OneTimeSetUp]
@@ -26,9 +26,9 @@ namespace TodoApp.ApiTests
 
             Debug.Assert(Factory.FoundTodoItemId > 0);
             Debug.Assert(Factory.NotFoundTodoItemId > 0);
-            Debug.Assert(Factory.TodoItemToUpdateId  > 0);
-            Debug.Assert(Factory.TodoItemToDeleteId  > 0);
-            Debug.Assert(Factory.DeletedTodoItemToUpdateId  > 0);
+            Debug.Assert(Factory.TodoItemToUpdateId > 0);
+            Debug.Assert(Factory.TodoItemToDeleteId > 0);
+            Debug.Assert(Factory.DeletedTodoItemToUpdateId > 0);
             Debug.Assert(Factory.Source.Count > 0);
         }
 
@@ -46,7 +46,7 @@ namespace TodoApp.ApiTests
             var content = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<TModel>>(content);
         }
-        
+
         protected async Task<TModel> GetByIdAsync<TModel>(long id)
         {
             var response = await Client.GetAsync($"{ApiRoute}/{id}");
@@ -65,7 +65,7 @@ namespace TodoApp.ApiTests
             var content = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<TModel>(content);
         }
-        
+
         protected async Task PutAsync<TModel>(long id, TModel model, HttpStatusCode expectedStatusCode)
         {
             var response = await Client.PutAsync($"{ApiRoute}/{id}",
