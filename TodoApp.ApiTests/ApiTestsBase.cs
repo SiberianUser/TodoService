@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using TodoApiDTO;
+using TodoApp.Api;
 
 namespace TodoApp.ApiTests
 {

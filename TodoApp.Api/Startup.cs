@@ -4,12 +4,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using TodoApp.Registry;
 
-namespace TodoApiDTO
+namespace TodoApp.Api
 {
     public class Startup
     {
+        private const string SwaggerDisplayName = "Todo Service API";
+        private const string ApiVersion = "v1";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -21,6 +24,14 @@ namespace TodoApiDTO
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAppDependencies().AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc(ApiVersion, new OpenApiInfo
+                {
+                    Title = SwaggerDisplayName,
+                    Version = ApiVersion
+                });
+            });
             services.AddProblemDetails(ProblemDetailsConfiguration.Configure);
         }
 
@@ -43,6 +54,14 @@ namespace TodoApiDTO
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+            
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", SwaggerDisplayName);
+                c.RoutePrefix = "";
             });
         }
     }

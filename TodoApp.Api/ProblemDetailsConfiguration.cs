@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TodoApp.TodoItems.Shared.Exceptions;
 
-namespace TodoApiDTO
+namespace TodoApp.Api
 {
     public static class ProblemDetailsConfiguration
     {

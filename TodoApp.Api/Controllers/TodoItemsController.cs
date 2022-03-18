@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TodoApp.TodoItems.Shared;
 using TodoApp.TodoItems.Shared.Dto;
 
-namespace TodoApiDTO.Controllers
+namespace TodoApp.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
