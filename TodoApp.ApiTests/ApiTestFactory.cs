@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Bogus;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using TodoApp.DataAccess;
 using TodoApp.ItemServices.Model;
+using TodoApp.TestsBase;
 
 namespace TodoApp.ApiTests
 {
@@ -63,9 +63,8 @@ namespace TodoApp.ApiTests
 
         private void Seed(TodoContext db)
         {
-            
-            var items = Enumerable.Range(1, 100)
-                .Select(s=>RandomTodoItem()).ToList();
+
+            var items = TodoItemsGenerator.RandomTodoItems();
             
             db.Set<TodoItem>().AddRangeAsync(items);
             db.SaveChanges();
@@ -77,11 +76,5 @@ namespace TodoApp.ApiTests
             TodoItemToDeleteId = items.SkipLast(5).Last().Id;
             Source = items;
         }
-
-
-        private static TodoItem RandomTodoItem() => new Faker<TodoItem>()
-            .RuleFor(f => f.IsComplete, f => f.Random.Bool())
-            .RuleFor(f => f.Secret, f => f.Random.Word())
-            .RuleFor(f => f.Name, f => f.Random.Word()).Generate();
     }
 }

@@ -2,22 +2,20 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+
+        <IsPackable>false</IsPackable>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Bogus" Version="34.0.1" />
-      <PackageReference Include="FluentAssertions" Version="6.5.1" />
-
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.13" />
+        <PackageReference Include="Moq.AutoMock" Version="2.3.0" />
         <PackageReference Include="nunit" Version="3.13.1" />
         <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\TodoApp.Api\TodoApp.Api.csproj" />
+      <ProjectReference Include="..\TodoApp.ItemServices\TodoApp.ItemServices.csproj" />
       <ProjectReference Include="..\TodoApp.TestsBase\TodoApp.TestsBase.csproj" />
     </ItemGroup>
-
 
 </Project>
