@@ -11,5 +11,12 @@ namespace TodoApp.DataAccess
         }
 
         public DbSet<TodoItem> TodoItems { get; set; }
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TodoItem>().HasKey(c=>c.Id);
+            
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
